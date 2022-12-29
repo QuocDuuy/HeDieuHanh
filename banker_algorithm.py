@@ -8,14 +8,14 @@ def main():
 	n = int(input("Enter the number of Processes: "))
 	m = int(input("Enter the number of Resources: "))
 
-	allocation = []
-	for i in range(n):
-		allocation.append(list(map(int, input('\nEnter the number of instances allocated for Process P'+str(i)+" : ").strip().split())))
-		
 	maX = []
 	for i in range(n):
 		maX.append(list(map(int, input("\nEnter Max matrix entry for Process P"+str(i)+" : ").strip().split())))
 
+	allocation = []
+	for i in range(n):
+		allocation.append(list(map(int, input('\nEnter the number of instances allocated for Process P'+str(i)+" : ").strip().split())))
+		
 	available = list(map(int, input("\nEnter the number of instances available of Resources : ").strip().split()))    
 
 	# Compute the need matrix
@@ -23,6 +23,10 @@ def main():
 	for i in range(n):
 		for j in range(m):
 			need[i][j] = maX[i][j] - allocation[i][j]
+	print("Need Table: \n")
+	for i in need:
+		print(i)
+		
 
 	# Implements Banker's Algorithm 
 	sequence = ['0']*n
@@ -32,6 +36,7 @@ def main():
 		safe = False
 		for i in range(n):
 			if visited[i]==0 and check(i):
+				print()
 				print(f"Process {i + 1} is executing")
 				sequence[count] = "P" + str(i)
 				count += 1
